@@ -1,4 +1,4 @@
-const Client = require("discord-rich-presence")('922120476032106507');
+const Client = require("discord-rich-presence")(/* Your RPC Client ID here */);
 const {F1TelemetryClient, constants} = require("f1-2021-udp");
 const {app, BrowserWindow} = require("electron");
 
