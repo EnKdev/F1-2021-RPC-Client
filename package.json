@@ -1,0 +1,24 @@
+{
+  "name": "f1-2021-rpc-client",
+  "version": "1.0.0",
+  "description": "An app that adds Rich Presence Support for F1 2021",
+  "main": "index.js",
+  "scripts": {
+    "start": "electron .",
+    "package-win": "electron-packager . f12021-rpc-client --overwrite --asar=true --platform=win32 --arch=ia32 --icon=./assets/icon/win/icon.ico --prune=true --out=build --version-string.CompanyName=CE --version-string.FileDescription=CS --version-string.ProductName=\"F1 2021 Rich Presence Client\"",
+    "package-mac": "electron-packager . --overwrite --platform=darwin --arch=x64 --icon=./assets/icon/mac/icons.icns --prune=true --out=release-builds",
+    "package-linux": "electron-packager . f12021-rpc-client --overwrite --asar=true --platform=linux --arch=x64 --icon=./assets/icon/linux/png/400x400.png --prune=true --out=release-builds",
+    "package": "package-win && package-mac && package-linux"
+  },
+  "author": "EnKdev",
+  "license": "GPLv3",
+  "dependencies": {
+    "debug": "^4.3.3",
+    "discord-rich-presence": "^0.0.8",
+    "f1-2021-udp": "^1.12.5"
+  },
+  "devDependencies": {
+    "electron": "^16.0.5",
+    "electron-packager": "^15.4.0"
+  }
+}
