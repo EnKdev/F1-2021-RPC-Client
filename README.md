@@ -16,5 +16,9 @@ Simple Discord RPC client for the game F1 2021.
 
 Current Version: 1.0.0
 
+-----
+
+## A pre-built release is also available!
+
 ##### Noteworthy info:
 This repository is based on Flamehaze7's [F1 2020 Discord RPC Repository](https://github.com/Flamehaze7/F1-2020-Discord-RPC)
