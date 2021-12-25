@@ -6,7 +6,9 @@ Simple Discord RPC client for the game F1 2021.
 - [x] Set the current track image when on track instead of showing the F1 2020 Logo
 - [X] Display the team the player is driving for
 
-**Remember to set the Client ID of your RPC inside index.js and to set the UDP IP to 127.0.0.1!**
+**Remember to set the Client ID of your RPC inside index.js and to set the UDP IP to 127.0.0.1! - Port: 20777**
+
+**Image Files for your RPC Client will also be made available at a later date!**
 
 ##### Test the project
 `npm start`
