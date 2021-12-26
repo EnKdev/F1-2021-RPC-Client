@@ -79,4 +79,6 @@ typings/
 # Custom
 build/**
 release_builds/**
-rpcImg/**
+rpcImg/flags/**
+rpcImg/Trackmaps/**
+.idea/**

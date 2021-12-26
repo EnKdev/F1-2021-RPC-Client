@@ -1,4 +1,6 @@
-const Client = require("discord-rich-presence")(/* Your RPC Client ID here */);
+const RpcConfig = require("./config/RpcConfig.json");
+
+const Client = require("discord-rich-presence")(`${RpcConfig.ClientId}`);
 const {F1TelemetryClient, constants} = require("f1-2021-udp");
 const {app, BrowserWindow} = require("electron");
 
@@ -15,6 +17,8 @@ let interval;
 f1Client.start();
 
 let teamId = 0;
+let raceCompletion = 0.0;
+let lapNumber = 0;
 
 resetStatus = () => {
     Client.updatePresence({
@@ -40,11 +44,19 @@ f1Client.on("session", (sData) => {
         console.log(pData);
     });
 
+    f1Client.on("lapData", (lData) => {
+        lapNumber = lData.m_lapData[19].m_currentLapNum;
+        console.log(lData);
+    });
+
+    raceCompletion = (100.0 / sData.m_totalLaps) * lapNumber;
+    raceCompletion = raceCompletion.toPrecision(2);
+
     Client.updatePresence({
         details: `${Session[sData.m_sessionType].Type} - ${
             Tracks[sData.m_trackId].Name
-        }`,
-        state: `Driving for ${Teams[teamId].Team}`,
+        } - [${raceCompletion}% done]`,
+        state: `Driving for ${Teams[teamId].Team} - Lap ${lapNumber}/${sData.m_totalLaps}`,
         smallImageKey: "backcover",
         smallImageText: "F1 2021",
         largeImageKey: `${LargeImage[sData.m_trackId].imageKey}`,
