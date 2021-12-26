@@ -10,8 +10,6 @@ Simple Discord RPC client for the game F1 2021.
 
 **Remember to set the Client ID of your RPC inside the RpcConfig.json file and to set the UDP IP to 127.0.0.1! - Port: 20777**
 
-**Image Files for your RPC Client will also be made available at a later date!**
-
 ##### Test the project
 `npm start`
 
