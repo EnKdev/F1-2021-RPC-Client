@@ -1,7 +1,7 @@
 const RpcConfig = require("./config/RpcConfig.json");
 
 const Client = require("discord-rich-presence")(`${RpcConfig.ClientId}`);
-const {F1TelemetryClient, constants} = require("f1-2021-udp");
+const {F1TelemetryClient} = require("f1-2021-udp");
 const {app, BrowserWindow} = require("electron");
 
 const Tracks = require("./config/TrackList.json");
@@ -28,29 +28,29 @@ resetStatus = () => {
     });
 };
 
+f1Client.on("participants", (pData) => {
+    pData.m_participants.some(function (index) {
+        if (index.m_aiControlled === 0) {
+            teamId = index.m_teamId;
+            return teamId;
+        }
+    });
+
+    console.log(pData);
+});
+
+f1Client.on("lapData",  (lData) => {
+    lapNumber = lData.m_lapData[19].m_currentLapNum;
+    console.log(lData);
+});
+
 f1Client.on("session", (sData) => {
     if (interval) {
         clearInterval(interval);
     }
 
-    f1Client.on("participants", (pData) => {
-        pData.m_participants.some(function(index) {
-            if (index.m_aiControlled === 0) {
-                teamId = index.m_teamId;
-                return teamId;
-            }
-        });
-
-        console.log(pData);
-    });
-
-    f1Client.on("lapData", (lData) => {
-        lapNumber = lData.m_lapData[19].m_currentLapNum;
-        console.log(lData);
-    });
-
     raceCompletion = (100.0 / sData.m_totalLaps) * lapNumber;
-    raceCompletion = raceCompletion.toPrecision(2);
+    raceCompletion = raceCompletion.toFixed(2);
 
     Client.updatePresence({
         details: `${Session[sData.m_sessionType].Type} - ${
@@ -62,6 +62,7 @@ f1Client.on("session", (sData) => {
         largeImageKey: `${LargeImage[sData.m_trackId].imageKey}`,
         largeImageText: `Racing on ${Tracks[sData.m_trackId].Name}`
     });
+
     console.log(sData);
 
     interval = setInterval(() => {
